@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using TelecomService.Api.Factory;
 using TelecomService.Api.Helpers;
 using TelecomService.Domain.Request;
@@ -12,7 +9,7 @@ using TelecomService.Domain.Response;
 namespace TelecomService.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route(template: "[controller]")]
     public class PhoneNumberFormatController : ControllerBase
     {
         private readonly PhoneNumberManagerFactory phoneNumberManagerFactory;
@@ -26,20 +23,25 @@ namespace TelecomService.Api.Controllers
         /// Returns the Phone Number in user readbale format 
         /// </summary>
         /// <param name="phoneNumberFormatRequest"></param>
-        [HttpPost(ApiRoutes.PhoneNumberFormat.FormatPhoneNumber)]
-        [ProducesResponseType(typeof(PhoneNumberFormatResponse), statusCode: 201)]
-        [ProducesResponseType(typeof(ErrorMessageResponse), statusCode: 400)]
+        [HttpPost(template: ApiRoutes.PhoneNumberFormat.FormatPhoneNumber)]
+        [ProducesResponseType(type: typeof(PhoneNumberFormatResponse), statusCode: 201)]
+        [ProducesResponseType(type: typeof(ErrorMessageResponse), statusCode: 400)]
         public async Task<IActionResult> FormatPhoneNumber([FromBody] PhoneNumberFormatRequest phoneNumberFormatRequest)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new ErrorMessageResponse { Message = "Phone Number cannot be empty" });
+                return BadRequest(error: new ErrorMessageResponse { Message = "Phone Number cannot be empty" });
             }
+
             var manager = this.phoneNumberManagerFactory
                 .GetPhoneFormatManager(phoneNumber: phoneNumberFormatRequest.PhoneNumber);
-            var formattedData = manager.GetFormattedPhoneNo(phoneNumber: phoneNumberFormatRequest.PhoneNumber);
+
+            var formattedData = manager
+                .GetFormattedPhoneNo(phoneNumber: phoneNumberFormatRequest.PhoneNumber);
+
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUrl = $"{baseUrl}/{ApiRoutes.PhoneNumberFormat.FormatPhoneNumber}";
+            
             return await Task.FromResult(Created(uri: locationUrl, value: formattedData));
         }
     }

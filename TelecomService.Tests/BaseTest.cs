@@ -22,17 +22,17 @@ namespace TelecomService.Tests
             {
                 _host = new WebHostBuilder()
                              .UseKestrel()
-                             .UseContentRoot(Directory.GetCurrentDirectory())
+                             .UseContentRoot(contentRoot: Directory.GetCurrentDirectory())
                              .UseStartup<Startup>()
-                             .ConfigureAppConfiguration((context, builder) =>
+                             .ConfigureAppConfiguration(configureDelegate: (context, builder) =>
                              {
                                  var env = context.HostingEnvironment;
-                                 builder.SetBasePath(env.ContentRootPath)
+                                 builder.SetBasePath(basePath: env.ContentRootPath)
                                      .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                                      .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                                      .AddEnvironmentVariables();
                              })
-                             .UseUrls("http://*:0")
+                             .UseUrls(urls:"http://*:0")
                              .Build();
                 _host.Start();
             }

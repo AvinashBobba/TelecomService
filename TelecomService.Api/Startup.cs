@@ -28,12 +28,8 @@ namespace TelecomService.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var formattingRulesOptions = new FormattingRulesOptions();
-            Configuration.GetSection(nameof(FormattingRulesOptions)).Bind(formattingRulesOptions);
-            services.AddSingleton(formattingRulesOptions);
-            services.AddSingleton<UKPhoneNumberManager, UKPhoneNumberManager>();
-            services.AddSingleton<PhoneNumberManagerFactory, PhoneNumberManagerFactory>();
-            services.InstallServicesInAssembly(Configuration);
+            
+            services.InstallServicesInAssembly(configuration: Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,14 +40,22 @@ namespace TelecomService.Api
             }
 
             var swaggerOptions = new SwaggerOptions();
-            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
 
-            app.UseSwagger(option =>
+            Configuration
+                .GetSection(key: nameof(SwaggerOptions))
+                .Bind(instance: swaggerOptions);
+
+            app.UseSwagger(setupAction: option =>
             {
                 option.RouteTemplate = swaggerOptions.JsonRoute;
             });
 
-            app.UseSwaggerUI(option => { option.SwaggerEndpoint(swaggerOptions.UIEndpoint, swaggerOptions.Description); });
+            app.UseSwaggerUI(setupAction: option => 
+            { 
+                option
+                .SwaggerEndpoint(url: swaggerOptions.UIEndpoint,
+                    name: swaggerOptions.Description); 
+            });
 
             app.UseHttpsRedirection();
 
@@ -59,7 +63,7 @@ namespace TelecomService.Api
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(configure: endpoints =>
             {
                 endpoints.MapControllers();
             });

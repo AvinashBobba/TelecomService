@@ -4,9 +4,9 @@ namespace TelecomService.Application.Manager
 {
     public class DefaultPhoneNumberManager : IPhoneNumberFormatManager
     {
-        public  PhoneNumberFormatResponse GetFormattedPhoneNo(string strVal)
+        public  PhoneNumberFormatResponse GetFormattedPhoneNo(string phoneNumber)
         {
-            return new PhoneNumberFormatResponse { FormattedPhoneNumber = strVal };
+            return new PhoneNumberFormatResponse { FormattedPhoneNumber = phoneNumber };
         }
     }
 }

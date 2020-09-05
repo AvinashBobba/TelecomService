@@ -9,23 +9,29 @@ namespace TelecomService.Api.Installers
 {
     public class SwaggerInstaller : IInstaller
     {
+        private const string API_VERSION = "v1";
+
+        private const string API_DOCUMENTATION_NAME = "Telecommunication Service API";
+
         public void InstallServices(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddControllers();
 
-            serviceCollection.AddSwaggerGen(x =>
+            serviceCollection.AddSwaggerGen(setupAction: x =>
             {
-                x.SwaggerDoc("v1",
-                new Microsoft.OpenApi.Models.OpenApiInfo
+                x.SwaggerDoc(name: API_VERSION,
+                info: new Microsoft.OpenApi.Models.OpenApiInfo
                 {
-                    Title = "Telecommunication Service API",
-                    Version = "v1"
+                    Title = API_DOCUMENTATION_NAME,
+                    Version = API_VERSION
                 });
 
                 x.ExampleFilters();
 
                 var xmlfile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlfile);
+                var xmlPath = Path.Combine(path1: AppContext.BaseDirectory,
+                    path2: xmlfile);
+                
                 x.IncludeXmlComments(xmlPath);
 
             });

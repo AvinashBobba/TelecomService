@@ -6,6 +6,7 @@ namespace TelecomService.Api.Factory
 {
     public class PhoneNumberManagerFactory
     {
+        private const string UK_COUNTRY_CODE = "+44";
         private readonly IServiceProvider serviceProvider;
 
         public PhoneNumberManagerFactory(IServiceProvider serviceProvider)
@@ -15,8 +16,8 @@ namespace TelecomService.Api.Factory
 
         public IPhoneNumberFormatManager GetPhoneFormatManager(string phoneNumber)
         {
-            IPhoneNumberFormatManager phoneNumberFormatManager = null;
-            if (phoneNumber.StartsWith("+44"))
+            IPhoneNumberFormatManager phoneNumberFormatManager;
+            if (phoneNumber.StartsWith(value: UK_COUNTRY_CODE))
             {
                 phoneNumberFormatManager = serviceProvider.GetRequiredService<UKPhoneNumberManager>();
             }

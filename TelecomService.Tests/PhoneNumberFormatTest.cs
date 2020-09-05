@@ -7,42 +7,42 @@ namespace TelecomService.Tests
 {
     public class PhoneNumberFormatTest : BaseTest
     {
-        private readonly  IPhoneNumberFormatManager _ukPhoneNumberFormatManager;
+        private readonly IPhoneNumberFormatManager _ukPhoneNumberFormatManager;
         private readonly IPhoneNumberFormatManager _defaultPhoneNumberFormatManager;
-        
+
         public PhoneNumberFormatTest()
         {
-            var formattingRules = (FormattingRulesOptions)this.ServiceProvider.GetService(typeof(FormattingRulesOptions));
-            _ukPhoneNumberFormatManager = new UKPhoneNumberManager(formattingRules);
+            var formattingRules = (FormattingRulesOptions)this.ServiceProvider.GetService(serviceType: typeof(FormattingRulesOptions));
+            _ukPhoneNumberFormatManager = new UKPhoneNumberManager(formattingRulesOptions: formattingRules);
             _defaultPhoneNumberFormatManager = new DefaultPhoneNumberManager();
         }
 
         [Theory]
         [InlineData("+44123412345", "01234 12345")]
         [InlineData("+441234123456", "01234 123456")]
-        public void UK_PhoneNumberFormat_StartWith_01_Test(string input , string expected)
+        public void UK_PhoneNumberFormat_StartWith_01_Test(string input, string expected)
         {
-            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected,actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
 
         [Theory]
         [InlineData("+441122345678", "0112 234 5678")]
         public void UK_PhoneNumberFormat_StartWith_011_Test(string input, string expected)
         {
-            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected, actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
 
         [Theory]
         [InlineData("+441214123456", "0121 123 1234")]
         public void UK_PhoneNumberFormat_StartWith_01n1_Test(string input, string expected)
         {
-            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected, actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
 
         [Theory]
@@ -64,27 +64,27 @@ namespace TelecomService.Tests
         [InlineData("+441975612345", "019756 12345")]
         public void UK_PhoneNumberFormat_5of5spacing_Format_Test(string input, string expected)
         {
-            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected, actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
 
         [Theory]
         [InlineData("+442112341234", "021 1234 1234")]
         public void UK_PhoneNumberFormat_StartWith_02_Test(string input, string expected)
         {
-            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected, actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
 
         [Theory]
         [InlineData("+443121231234", "0312 123 1234")]
         public void UK_PhoneNumberFormat_StartWith_03_Test(string input, string expected)
         {
-            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected, actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
 
 
@@ -93,18 +93,18 @@ namespace TelecomService.Tests
         [InlineData("+448123123456", "08123 123456")]
         public void UK_PhoneNumberFormat_StartsWith_07and05_Test(string input, string expected)
         {
-            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected, actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
 
         [Theory]
         [InlineData("+44800123456", "0800 123456")]
         public void UK_PhoneNumberFormat_StartsWith_0800_Test(string input, string expected)
         {
-            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected, actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
 
 
@@ -113,9 +113,9 @@ namespace TelecomService.Tests
         [InlineData("+449121231234", "0912 123 1234")]
         public void UK_PhoneNumberFormat_StartsWith_08nand09_Test(string input, string expected)
         {
-            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected, actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
 
         [Theory]
@@ -123,9 +123,9 @@ namespace TelecomService.Tests
         [InlineData("+11234123456", "+11234123456")]
         public void Default_PhoneNumberFormat_StartsWithOtherThan_UK_Country_Code(string input, string expected)
         {
-            var actual = _defaultPhoneNumberFormatManager.GetFormattedPhoneNo(input);
+            var actual = _defaultPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input);
 
-            Assert.Equal(expected, actual.FormattedPhoneNumber);
+            Assert.Equal(expected: expected, actual: actual.FormattedPhoneNumber);
         }
     }
 }
