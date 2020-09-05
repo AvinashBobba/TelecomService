@@ -9,7 +9,8 @@ using TelecomService.Domain.Response;
 namespace TelecomService.Api.Controllers
 {
     [ApiController]
-    [Route(template: "[controller]")]
+    [Route("[controller]")]
+    [Produces("application/json")]
     public class PhoneNumberFormatController : ControllerBase
     {
         private readonly PhoneNumberManagerFactory phoneNumberManagerFactory;
@@ -36,13 +37,13 @@ namespace TelecomService.Api.Controllers
             var manager = this.phoneNumberManagerFactory
                 .GetPhoneFormatManager(phoneNumber: phoneNumberFormatRequest.PhoneNumber);
 
-            var formattedData = manager
+            var formattedData = await manager
                 .GetFormattedPhoneNo(phoneNumber: phoneNumberFormatRequest.PhoneNumber);
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUrl = $"{baseUrl}/{ApiRoutes.PhoneNumberFormat.FormatPhoneNumber}";
-            
-            return await Task.FromResult(Created(uri: locationUrl, value: formattedData));
+
+            return Created(uri: locationUrl, value: formattedData); ;
         }
     }
 }

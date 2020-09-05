@@ -1,9 +1,10 @@
-﻿using TelecomService.Domain.Response;
+﻿using System.Threading.Tasks;
+using TelecomService.Domain.Response;
 
 namespace TelecomService.Application.Manager
 {
     public interface IPhoneNumberFormatManager
     {
-        public PhoneNumberFormatResponse GetFormattedPhoneNo(string phoneNumber);
+        public  Task<PhoneNumberFormatResponse> GetFormattedPhoneNo(string phoneNumber);
     }
 }

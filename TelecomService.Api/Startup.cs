@@ -57,7 +57,7 @@ namespace TelecomService.Api
                     name: swaggerOptions.Description); 
             });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

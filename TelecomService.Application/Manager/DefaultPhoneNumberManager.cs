@@ -1,12 +1,13 @@
-﻿using TelecomService.Domain.Response;
+﻿using System.Threading.Tasks;
+using TelecomService.Domain.Response;
 
 namespace TelecomService.Application.Manager
 {
     public class DefaultPhoneNumberManager : IPhoneNumberFormatManager
     {
-        public  PhoneNumberFormatResponse GetFormattedPhoneNo(string phoneNumber)
+        public async  Task<PhoneNumberFormatResponse> GetFormattedPhoneNo(string phoneNumber)
         {
-            return new PhoneNumberFormatResponse { FormattedPhoneNumber = phoneNumber };
+            return await Task.FromResult(new PhoneNumberFormatResponse { FormattedPhoneNumber = phoneNumber });
         }
     }
 }

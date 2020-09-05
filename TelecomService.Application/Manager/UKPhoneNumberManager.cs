@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using TelecomService.Application.Helpers;
 using TelecomService.Domain;
 using TelecomService.Domain.Options;
@@ -39,7 +40,7 @@ namespace TelecomService.Application.Manager
             }
         }
 
-        public PhoneNumberFormatResponse GetFormattedPhoneNo(string phoneNumber)
+        public async Task<PhoneNumberFormatResponse> GetFormattedPhoneNo(string phoneNumber)
         {
             var response = new PhoneNumberFormatResponse();
             
@@ -62,7 +63,7 @@ namespace TelecomService.Application.Manager
                 response.FormattedPhoneNumber = value.ToString(format: $"0{matchPattern.Value}");
             }
 
-            return response;
+            return await Task.FromResult(response);
         }
     }
 }
