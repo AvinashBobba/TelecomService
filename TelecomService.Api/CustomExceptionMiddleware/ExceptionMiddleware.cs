@@ -12,13 +12,15 @@ namespace TelecomService.Api.CustomExceptionMiddleware
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-
         private readonly ILogger _logger;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger logger)
+
+
+        public ExceptionMiddleware(RequestDelegate next,ILoggerFactory loggerFactory)
         {
             _next = next;
-            _logger = logger;
+            _logger = loggerFactory.CreateLogger<ExceptionMiddleware>();
+
         }
 
         public async Task InvokeAsync(HttpContext httpContext)

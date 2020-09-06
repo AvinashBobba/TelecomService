@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelecomService.Tests", "Tel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelecomService.Domain", "TelecomService.Domain\TelecomService.Domain.csproj", "{1C3FD13C-1A4F-4DDF-B76E-9B226D6DACAA}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{991C21BF-CE6C-4830-9E04-9734FFF91D1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1C3FD13C-1A4F-4DDF-B76E-9B226D6DACAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C3FD13C-1A4F-4DDF-B76E-9B226D6DACAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C3FD13C-1A4F-4DDF-B76E-9B226D6DACAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{991C21BF-CE6C-4830-9E04-9734FFF91D1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{991C21BF-CE6C-4830-9E04-9734FFF91D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{991C21BF-CE6C-4830-9E04-9734FFF91D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{991C21BF-CE6C-4830-9E04-9734FFF91D1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

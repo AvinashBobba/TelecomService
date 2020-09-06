@@ -35,14 +35,12 @@ namespace TelecomService.Api.Controllers
         [ProducesResponseType(type: typeof(ErrorMessageResponse), statusCode: 400)]
         public async Task<IActionResult> FormatPhoneNumber([FromBody] PhoneNumberFormatRequest phoneNumberFormatRequest)
         {
-            _logger.LogInformation(eventId: 1,message: "Started Format application");
+            _logger.LogInformation(message: "Calling FormatPhoneNumber Method");
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(error: new ErrorMessageResponse { Message = "Phone Number cannot be empty" });
             }
-
-           // throw new System.Exception("Uncatched Error");
 
             var manager = _phoneNumberManagerFactory
                 .GetPhoneFormatManager(phoneNumber: phoneNumberFormatRequest.PhoneNumber);
@@ -52,6 +50,8 @@ namespace TelecomService.Api.Controllers
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUrl = $"{baseUrl}/{ApiRoutes.PhoneNumberFormat.FormatPhoneNumber}";
+
+            _logger.LogInformation(message: "Ended FormatPhoneNumber Method");
 
             return Created(uri: locationUrl, value: formattedData); ;
         }

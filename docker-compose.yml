@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  telecomservice.api:
+    image: ${DOCKER_REGISTRY-}telecomserviceapi
+    build:
+      context: .
+      dockerfile: TelecomService.Api/Dockerfile
