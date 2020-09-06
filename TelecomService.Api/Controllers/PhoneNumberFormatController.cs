@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using TelecomService.Api.Factory;
 using TelecomService.Api.Helpers;
@@ -13,12 +14,17 @@ namespace TelecomService.Api.Controllers
     [Produces("application/json")]
     public class PhoneNumberFormatController : ControllerBase
     {
-        private readonly PhoneNumberManagerFactory phoneNumberManagerFactory;
+        private readonly ILogger<PhoneNumberFormatController> _logger;
+        private readonly PhoneNumberManagerFactory _phoneNumberManagerFactory;
 
-        public PhoneNumberFormatController(PhoneNumberManagerFactory phoneNumberManagerFactory)
+        public PhoneNumberFormatController(ILogger<PhoneNumberFormatController> logger, 
+            PhoneNumberManagerFactory phoneNumberManagerFactory)
         {
-            this.phoneNumberManagerFactory = phoneNumberManagerFactory;
+            _logger = logger;
+            _phoneNumberManagerFactory = phoneNumberManagerFactory;
         }
+
+
 
         /// <summary>
         /// Returns the Phone Number in user readbale format 
@@ -29,12 +35,16 @@ namespace TelecomService.Api.Controllers
         [ProducesResponseType(type: typeof(ErrorMessageResponse), statusCode: 400)]
         public async Task<IActionResult> FormatPhoneNumber([FromBody] PhoneNumberFormatRequest phoneNumberFormatRequest)
         {
+            _logger.LogInformation(eventId: 1,message: "Started Format application");
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(error: new ErrorMessageResponse { Message = "Phone Number cannot be empty" });
             }
 
-            var manager = this.phoneNumberManagerFactory
+           // throw new System.Exception("Uncatched Error");
+
+            var manager = _phoneNumberManagerFactory
                 .GetPhoneFormatManager(phoneNumber: phoneNumberFormatRequest.PhoneNumber);
 
             var formattedData = await manager
