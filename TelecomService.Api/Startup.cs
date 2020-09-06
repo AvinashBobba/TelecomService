@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using TelecomService.Api.Extensions;
 using TelecomService.Domain.Options;
 
@@ -21,7 +20,6 @@ namespace TelecomService.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSingleton(typeof(ILogger));
             services.InstallServicesInAssembly(configuration: Configuration);
         }
 
@@ -52,7 +50,7 @@ namespace TelecomService.Api
 
             app.ConfigureExceptionMiddleware();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
