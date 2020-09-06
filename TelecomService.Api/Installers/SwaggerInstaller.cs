@@ -4,6 +4,7 @@ using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.IO;
 using System.Reflection;
+using TelecomService.Api.Filters;
 
 namespace TelecomService.Api.Installers
 {
@@ -25,6 +26,8 @@ namespace TelecomService.Api.Installers
                     Title = API_DOCUMENTATION_NAME,
                     Version = API_VERSION
                 });
+
+                x.OperationFilter<ApikeyFilter>();
 
                 x.ExampleFilters();
 
