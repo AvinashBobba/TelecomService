@@ -2,6 +2,8 @@ version: '3.4'
 
 services:
   telecomservice.api:
+    environment:
+      - ApiKey=MySecretKey
     image: ${DOCKER_REGISTRY-}telecomserviceapi
     build:
       context: .

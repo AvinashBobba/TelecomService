@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using TelecomService.Api.Factory;
+using TelecomService.Api.Filters;
 using TelecomService.Api.Helpers;
 using TelecomService.Domain.Request;
 using TelecomService.Domain.Response;
@@ -12,6 +13,7 @@ namespace TelecomService.Api.Controllers
     [ApiController]
     [Route("[controller]")]
     [Produces("application/json")]
+    [ApiKeyAuth]
     public class PhoneNumberFormatController : ControllerBase
     {
         private readonly ILogger<PhoneNumberFormatController> _logger;
