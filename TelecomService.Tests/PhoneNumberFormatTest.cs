@@ -35,7 +35,7 @@ namespace TelecomService.Tests
         }
 
         [Theory]
-        [InlineData("+441214123456", "0121 123 1234")]
+        [InlineData("+441211231234", "0121 123 1234")]
         public void UK_PhoneNumberFormat_StartWith_01n1_Test(string input, string expected)
         {
             var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input).Result;
@@ -88,7 +88,7 @@ namespace TelecomService.Tests
 
         [Theory]
         [InlineData("+447123123456", "07123 123456")]
-        [InlineData("+448123123456", "08123 123456")]
+        [InlineData("+445123123456", "05123 123456")]
         public void UK_PhoneNumberFormat_StartsWith_07and05_Test(string input, string expected)
         {
             var actual = _ukPhoneNumberFormatManager.GetFormattedPhoneNo(phoneNumber: input).Result;
