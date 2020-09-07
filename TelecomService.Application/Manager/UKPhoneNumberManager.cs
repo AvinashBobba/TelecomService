@@ -55,7 +55,6 @@ namespace TelecomService.Application.Manager
                                                             )
                                                         .OrderByDescending(keySelector: kv => kv.Key.StartsWithFormat.Length)
                                                         .FirstOrDefault();
-            ;
             if (matchPattern.Value != null)
             {
                 var phoneNo = phoneNumber.Replace(oldValue: matchPattern.Key.Country,newValue: "");
