@@ -7,13 +7,14 @@ The domain layer holds the system objects(class) .
 
 For Testing purpose, xUnit is being used and is used to cover the business cases . 
 
-Application is configured with both exception handling and logging and swagger . 
+Application is configured with both exception handling and logging and swagger and security using Api key . 
 
 
 
 How to run the application : 
 
-    For Security : 
+    **Optional**
+
     (Remove the ApiKey from json file)
     (SETUP : Add "ApiKey": <yoursecretkey> Json object in appSettings file (or) Add an enviroment variable ApiKey = <yoursecretkey> (or) You can add your own secret manager passing your Guid in .csproj file )
 
