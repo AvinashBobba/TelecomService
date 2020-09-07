@@ -11,7 +11,11 @@ Application is configured with both exception handling and logging and swagger .
 
 
 
-How to run the application : (SETUP : Add "ApiKey": <yoursecretkey> Json object in appSettings file (or) Add an enviroment variable ApiKey = <yoursecretkey> (or) You can add your own secret manager passing your Guid in .csproj file )
+How to run the application : 
+
+    For Security : 
+    (Remove the ApiKey from json file)
+    (SETUP : Add "ApiKey": <yoursecretkey> Json object in appSettings file (or) Add an enviroment variable ApiKey = <yoursecretkey> (or) You can add your own secret manager passing your Guid in .csproj file )
 
 Step 1 : Download the solution as zip and extract the solution . 
     
